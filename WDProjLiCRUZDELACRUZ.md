@@ -36,7 +36,7 @@ Get to know the current driver lineup for the 2025 season, with the current stan
 **References:** This page will always be available on the bottom of the website, linking to all the sources used for information and images.
  
 ---
-JS will be incorporated in our website through buttons and interactable ui, leading you through the website and revealing certain elements.
+JS will be incorporated in our website through buttons and interactable ui, leading you through the website and revealing certain elements. Examples of these would be the logo near the title, which would redirect you to the home page and the windows on the home page which would redirect you to other webpages.
 
 ---
 ### **Website Wireframe**
@@ -51,6 +51,7 @@ Webpage template (Slide 2)
 Sources (Slide 3)
 
 ---
+
 
 
 
