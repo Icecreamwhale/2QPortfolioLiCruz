@@ -25,13 +25,13 @@ Get to know the current driver lineup for the 2025 season, with the current stan
 
 **P4(Driver Lineup for the 2025 Season)** = This webpage will simply show the lineup of drivers for this year's season, accompanied by a short description for each driver.
 
-**P5(Race Weekend:)** = This webpage will detail what goes on during a race weekend and its importance.
+**P5(Race Weekend)** = This webpage will detail what goes on during a race weekend and its importance.
 
 **P6(World Driver's Championship standings)** = This webpage will be a leaderboard showing the standings and rankings of each driver for this season.
 
 **P7(Constructor's Championship winner)** = This webpage will show the team that scored the most points during this season.
 
-**P8(Driver Hall of Fame/Legendary Drivers:)** = This webpage will highlight the extraordinary feats and records accomplished by certain drivers.
+**P8(Driver Hall of Fame/Legendary Drivers)** = This webpage will highlight the extraordinary feats and records accomplished by certain drivers.
 
 **References:** This page will always be available on the bottom of the website, linking to all the sources used for information and images.
  
@@ -51,6 +51,7 @@ Webpage template (Slide 2)
 Sources (Slide 3)
 
 ---
+
 
 
 
