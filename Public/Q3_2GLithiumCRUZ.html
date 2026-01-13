@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <style>
+*{
+  font-family: Arial, sans-serif;
+  
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  }
+
+h1, h2 {
+    margin-top: 5%;
+  text-align: center;
+  }
+form{
+    margin-left: 35%;
+   
+   
+}
+
+body{
+
+ border: 3px solid black
+}
+
+</style>
+    </head>
+<body>
+<h1>--Club Signup Form--</h1>
+<form method = "post" action = "submit">
+
+<fieldset>
+    <legend>Information:</legend>
+
+  <label for="user-ID">Student ID:</label><br>
+  <input type="number" id = "user-ID"  required><br>
+
+   <label for="user-name">Full Name:</label><br>
+  <input type="text" id = "user-name" placeholder="LAST NAME, First Name" required><br>
+
+    <label for="user-bday">Birthday:</label><br>
+  <input type="date" id = "user-bday"  required><br>
+
+   <label for="user-email">Email Address:</label><br>
+  <input type="email" id="user-email" placeholder="you@example.com"  required><br>
+
+</fieldset>
+
+<fieldset>
+    <legend>Information:</legend>
+
+     <label for="user-phone">Mobile Phone:</label><br>
+  <input type="text" id = "user-phone"  required><br>
+
+  <label for="grade">Grade Level:</label></br>
+ <select name="Grades" id="grade"  required>
+
+    <option value="G7">Grade 7</option>
+    <option value="G8">Grade 8</option>
+    <option value="G9">Grade 9</option>
+    <option value="G10">Grade 10</option>
+    <option value="G11">Grade 11</option>
+    <option value="G12">Grade 12</option>
+
+</select>
+
+    <p>Intern/Extern:</p>
+
+  <input type="radio" id="extern" name="Intern/Extern" value="extern"  required>
+  <label for="extern">Extern</label></br>
+
+  <input type="radio" id="intern" name="Intern/Extern" value="intern"  required>
+  <label for="intern">Intern</label></br>
+
+  <label for="club">Preffered Club:</label></br>
+
+ <select name="clubTypes" id="club"  required>
+
+    <option value="A">Sports/Activity</option>
+    <option value="B">Arts/Creatives</option>
+    <option value="C">Performance/Drama</option>
+    <option value="D">Activist</option>
+    <option value="E">Other</option>
+</select></br>
+
+
+    <label for="comments">Why do you want to join?: </label></br>
+
+    <textarea id="tArea" name="comments" rows="4" cols="30"  required> </textarea><br>
+
+    <input type = "submit" value = "Sign In">
+    <input type = "reset" value = "Reset">
+</fieldset>
+
+
+</form>
+</body>
+</html>
