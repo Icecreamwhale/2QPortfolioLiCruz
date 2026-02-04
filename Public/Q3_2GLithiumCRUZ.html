@@ -5,23 +5,37 @@
   font-family: Arial, sans-serif;
 }
 h1{
-    text-align: center;
+    margin-top: auto;
+}
+
+form{
+    display: inline-block;
+    text-align: left; 
+}
+
+input{
+    margin-bottom: 20px;
+}
+
+input:focus, textarea:focus, select:focus {
+    background-color: lightyellow;
 }
 
 </style>
     </head>
 <body>
+<div style="text-align: center;">
 <h1>--Club Signup Form--</h1>
-<form method = "post" action = "submit">
+<form method = "post" action = "submit" onsubmit = "return confirm('Would you like to proceed?');" onreset = "return confirm('Would you like to reset?');">
 
 <fieldset>
-    <legend>Information:</legend>
+    <legend>Basic Information:</legend>
 
   <label for="user-ID">Student ID:</label><br>
   <input type="number" id = "user-ID"  required><br>
 
    <label for="user-name">Full Name:</label><br>
-  <input type="text" id = "user-name" placeholder="LAST NAME, First Name" required><br>
+  <input type="text" id = "text" placeholder="LAST NAME, First Name" onblur ="func()" required><br>
 
     <label for="user-bday">Birthday:</label><br>
   <input type="date" id = "user-bday"  required><br>
@@ -30,12 +44,10 @@ h1{
   <input type="email" id="user-email" placeholder="you@example.com"  required><br>
 
 </fieldset>
-
+<br>
 <fieldset>
-    <legend>Information:</legend>
-
      <label for="user-phone">Mobile Phone:</label><br>
-  <input type="text" id = "user-phone"  required><br>
+  <input type="text" id = "user-phone" onblur ="func2()" required pla><br>
 
   <label for="grade">Grade Level:</label></br>
  <select name="Grades" id="grade"  required>
@@ -71,13 +83,39 @@ h1{
 
     <label for="comments">Why do you want to join?: </label></br>
 
-    <textarea required  id="tArea" name="comments" rows="4" cols="30"></textarea><br>
-    
+    <textarea required  id="tArea" name="comments" rows="4" cols="30" onblur ="func3()"></textarea><br>
+<br>
     <input type = "submit" value = "Sign In">
     <input type = "reset" value = "Reset">
 </fieldset>
 
 
 </form>
+</div>
 </body>
+
+<script>
+function func() {
+  var name = document.getElementById("text").value;
+  if (name === "") {
+    alert("Please fill out the name text field before proceeding.");
+  }
+}
+
+function func2() {
+  var name = document.getElementById("user-phone").value;
+  if (name === "") {
+    alert("Please fill out the phone number field before proceeding.");
+  }
+}
+
+function func3() {
+  var area = document.getElementById("tArea").value;
+  if (area === "") {
+    alert("Please fill out the comments field before proceeding.");
+  }
+}
+
+
+</script>
 </html>
