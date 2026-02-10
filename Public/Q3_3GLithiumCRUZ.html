@@ -1,0 +1,96 @@
+<html>
+    <style>
+      *{
+  font-family: Arial, sans-serif;
+}
+h1{
+    margin-top: auto;
+}
+table, th, tr{
+    border: 1px solid black;
+    border-collapse: separate;
+    margin: auto;
+    padding: 10px;
+}
+
+  
+    </style>
+<h1>List of Student Sign-Ups:</h1>
+<h2>Number of sign ups: 0</h2>
+<h2>Back to sign-up sheet</h2>
+
+<table id="myTable">
+    <tr>
+        <th>Club type</th>
+        <th>Student ID</th>
+        <th>Full Name</th>
+        <th>Birthday</th>
+        <th>Email Address</th>
+        <th>Mobile Phone</th>
+        <th>Grade Level</th>
+        <th>Intern/Extern</th>
+    </tr>
+</table>
+
+<script>
+var table = document.getElementById("myTable");
+var row = table.insertRow(1);
+
+cell1.innerHTML = "NEW CELL1";
+cell2.innerHTML = "NEW CELL2";
+
+       const STORAGE_KEY = 'signups';
+        const form = document.getElementById('signupForm');
+        const tbody = document.querySelector('#myTable tbody');
+        const countEl = document.getElementById('signupCount');
+
+        let signups = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+        function updateCount(){ countEl.textContent = signups.length; }
+
+        function addRow(entry){
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${entry.clubType || ''}</td>
+                <td>${entry.studentId || ''}</td>
+                <td>${entry.fullName || ''}</td>
+                <td>${entry.birthday || ''}</td>
+                <td>${entry.email || ''}</td>
+                <td>${entry.mobile || ''}</td>
+                <td>${entry.grade || ''}</td>
+                <td>${entry.internExtern || ''}</td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function renderAll(){
+            tbody.innerHTML = '';
+            signups.forEach(addRow);
+            updateCount();
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(form).entries());
+            signups.push(data);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(signups));
+            renderAll();
+            form.reset();
+        });
+
+        document.getElementById('clearStorage').addEventListener('click', () => {
+            if(!confirm('Clear all sign-ups from localStorage?')) return;
+            signups = [];
+            localStorage.removeItem(STORAGE_KEY);
+            renderAll();
+        });
+
+        document.addEventListener('DOMContentLoaded', renderAll);
+
+
+</script>
+
+
+
+
+</html>
