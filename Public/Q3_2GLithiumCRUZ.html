@@ -26,31 +26,31 @@ input:focus, textarea:focus, select:focus {
 <body>
 <div style="text-align: center;">
 <h1>--Club Signup Form--</h1>
-<form method = "post" action = "submit" onsubmit = "return confirm('Would you like to proceed?');" onreset = "return confirm('Would you like to reset?');">
+<form method="post" action="submit" onsubmit="return handleSubmit(event);" onreset = "return confirm('Would you like to reset?');">
 
 <fieldset>
     <legend>Basic Information:</legend>
 
   <label for="user-ID">Student ID:</label><br>
-  <input type="number" id = "user-ID"  required><br>
+  <input type="number" id="user-ID" name="studentId" required><br>
 
-   <label for="user-name">Full Name:</label><br>
-  <input type="text" id = "text" placeholder="LAST NAME, First Name" onblur ="func()" required><br>
+  <label for="user-name">Full Name:</label><br>
+  <input type="text" id="user-name" name="fullName" placeholder="LAST NAME, First Name" onblur ="func()" required><br>
 
     <label for="user-bday">Birthday:</label><br>
-  <input type="date" id = "user-bday"  required><br>
+  <input type="date" id="user-bday" name="birthday" required><br>
 
-   <label for="user-email">Email Address:</label><br>
-  <input type="email" id="user-email" placeholder="you@example.com"  required><br>
+  <label for="user-email">Email Address:</label><br>
+  <input type="email" id="user-email" name="email" placeholder="you@example.com" required><br>
 
 </fieldset>
 <br>
 <fieldset>
-     <label for="user-phone">Mobile Phone:</label><br>
-  <input type="text" id = "user-phone" onblur ="func2()" required pla><br>
+      <label for="user-phone">Mobile Phone:</label><br>
+    <input type="text" id="user-phone" name="mobile" onblur ="func2()" required><br>
 
   <label for="grade">Grade Level:</label></br>
- <select name="Grades" id="grade"  required>
+ <select name="grade" id="grade" required>
 
     <option value="G7">Grade 7</option>
     <option value="G8">Grade 8</option>
@@ -63,15 +63,15 @@ input:focus, textarea:focus, select:focus {
 
     <p>Intern/Extern:</p>
 
-  <input type="radio" id="extern" name="Intern/Extern" value="extern" required>
+  <input type="radio" id="extern" name="internExtern" value="extern" required>
   <label for="extern">Extern</label></br>
 
-  <input type="radio" id="intern" name="Intern/Extern" value="intern" required>
+  <input type="radio" id="intern" name="internExtern" value="intern" required>
   <label for="intern">Intern</label></br>
 
   <label for="club">Preffered Club:</label></br>
 
- <select name="clubTypes" id="club" required>
+ <select name="clubType" id="club" required>
 
     <option value="A">Sports/Activity</option>
     <option value="B">Arts/Creatives</option>
@@ -117,5 +117,39 @@ function func3() {
 }
 
 
+</script>
+<script>
+function handleSubmit(e){
+  e = e || window.event;
+  if(!confirm('Would you like to proceed?')) return false;
+  const form = document.querySelector('form');
+  const data = Object.fromEntries(new FormData(form).entries());
+  const existing = JSON.parse(localStorage.getItem('signups') || '[]');
+  existing.push(data);
+  localStorage.setItem('signups', JSON.stringify(existing));
+  alert('Sign-up saved locally.');
+  return false; 
+}
+
+function func() {
+  var name = document.getElementById("user-name").value;
+  if (name === "") {
+    alert("Please fill out the name text field before proceeding.");
+  }
+}
+
+function func2() {
+  var name = document.getElementById("user-phone").value;
+  if (name === "") {
+    alert("Please fill out the phone number field before proceeding.");
+  }
+}
+
+function func3() {
+  var area = document.getElementById("tArea").value;
+  if (area === "") {
+    alert("Please fill out the comments field before proceeding.");
+  }
+}
 </script>
 </html>
