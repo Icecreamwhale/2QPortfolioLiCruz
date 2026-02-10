@@ -6,89 +6,90 @@
 h1{
     margin-top: auto;
 }
-table, th, tr{
+table, th, tr, td{
     border: 1px solid black;
     border-collapse: separate;
     margin: auto;
     padding: 10px;
 }
-
-  
     </style>
+
 <h1>List of Student Sign-Ups:</h1>
-<h2>Number of sign ups: 0</h2>
-<h2>Back to sign-up sheet</h2>
+<h2>Number of sign ups: <span id="signupCount">0</span></h2>
+<a href="hmmm.html">Back to sign-up sheet</a>
+
+<select class="filter-buttons" id="filterSelect">
+  <option value="all">Show All</option>
+  <option value="A">Sports/Activity</option>
+  <option value="B">Arts/Creatives</option>
+  <option value="C">Performance/Drama</option>
+  <option value="D">Activist</option>
+  <option value="E">Other</option>
+</select>
+
 
 <table id="myTable">
-    <tr>
-        <th>Club type</th>
-        <th>Student ID</th>
-        <th>Full Name</th>
-        <th>Birthday</th>
-        <th>Email Address</th>
-        <th>Mobile Phone</th>
-        <th>Grade Level</th>
-        <th>Intern/Extern</th>
-    </tr>
+    <thead>
+        <tr>
+            <th class = "title">Club type</th>
+            <th class = "title">Student ID</th>
+            <th class = "title">Full Name</th>
+            <th class = "title">Birthday</th>
+            <th class = "title">Email Address</th>
+            <th class = "title">Mobile Phone</th>
+            <th class = "title">Grade Level</th>
+            <th class = "title">Intern/Extern</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
 </table>
 
 <script>
-var table = document.getElementById("myTable");
-var row = table.insertRow(1);
+const STORAGE_KEY = 'signups';
+const countEl = document.getElementById('signupCount');
+let currentFilter = 'all';
+let allSignups = [];
 
-cell1.innerHTML = "NEW CELL1";
-cell2.innerHTML = "NEW CELL2";
+function populateTable(filter = 'all') {
+  allSignups = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const tbody = document.querySelector('#myTable tbody');
+  
+ 
+  tbody.innerHTML = '';
+  const filtered = filter === 'all' ? allSignups : allSignups.filter(entry => entry.clubType === filter);
+  
+ 
+  filtered.forEach(entry => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${entry.clubType || ''}</td>
+      <td>${entry.studentId || ''}</td>
+      <td>${entry.fullName || ''}</td>
+      <td>${entry.birthday || ''}</td>
+      <td>${entry.email || ''}</td>
+      <td>${entry.mobile || ''}</td>
+      <td>${entry.grade || ''}</td>
+      <td>${entry.internExtern || ''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
 
-       const STORAGE_KEY = 'signups';
-        const form = document.getElementById('signupForm');
-        const tbody = document.querySelector('#myTable tbody');
-        const countEl = document.getElementById('signupCount');
+  countEl.textContent = filtered.length;
+}
+const filterSelect = document.getElementById('filterSelect');
+if (filterSelect) {
+  filterSelect.addEventListener('change', (e) => {
+    currentFilter = e.target.value;
+    populateTable(currentFilter);
+  });
+}
 
-        let signups = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-
-        function updateCount(){ countEl.textContent = signups.length; }
-
-        function addRow(entry){
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${entry.clubType || ''}</td>
-                <td>${entry.studentId || ''}</td>
-                <td>${entry.fullName || ''}</td>
-                <td>${entry.birthday || ''}</td>
-                <td>${entry.email || ''}</td>
-                <td>${entry.mobile || ''}</td>
-                <td>${entry.grade || ''}</td>
-                <td>${entry.internExtern || ''}</td>
-            `;
-            tbody.appendChild(tr);
-        }
-
-        function renderAll(){
-            tbody.innerHTML = '';
-            signups.forEach(addRow);
-            updateCount();
-        }
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const data = Object.fromEntries(new FormData(form).entries());
-            signups.push(data);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(signups));
-            renderAll();
-            form.reset();
-        });
-
-        document.getElementById('clearStorage').addEventListener('click', () => {
-            if(!confirm('Clear all sign-ups from localStorage?')) return;
-            signups = [];
-            localStorage.removeItem(STORAGE_KEY);
-            renderAll();
-        });
-
-        document.addEventListener('DOMContentLoaded', renderAll);
-
-
+document.addEventListener('DOMContentLoaded', () => populateTable('all'));
 </script>
+
 
 
 
