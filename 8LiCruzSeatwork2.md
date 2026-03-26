@@ -122,10 +122,10 @@ Answer: The notice object appears infront of the main content object due to its 
 
     a. Could you summarize the differences between the CSS position values (static, relative, absolute, fixed)? 
 
-    Answer: Static- The default value, no difference in positioning
-            Relative- Relative to its current position
-            Absolute- Relative to its closest ancestor/object
-            Fixed- Stays fixed on a certain portion of the website, despite scrolling
+    Answer: Static- The default value, no difference in positioning |
+            Relative- Relative to its current position |
+            Absolute- Relative to its closest ancestor/object |
+            Fixed- Stays fixed on a certain portion of the website, despite scrolling |
 
     b. How does absolute positioning depend on its parent element?
 
