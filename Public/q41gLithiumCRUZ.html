@@ -1,0 +1,143 @@
+<form method="post" action="submit" onsubmit="return store();">
+
+<h1>Add a Movie:</h1>
+<fieldset>
+
+
+  <label for="user-ID">Year:</label><br>
+  <input type="number" id="user-ID" name="studentId" required><br>
+
+  <label for="user-name">Title:</label><br>
+  <input type="text" id="user-name" name="fullName" required><br>
+
+    <label for="grade">Genre:</label></br>
+ <select name="grade" id="grade" required>
+
+    <option value="Action">Action</option>
+    <option value="Comedy">Comedy</option>
+    <option value="Drama">Drama</option>
+    <option value="Horror">Horror</option>
+    <option value="Romance">Romance</option>
+    <option value="Sci-Fi">Sci-Fi</option>
+
+</select>
+
+    <p>Rating:</p>
+
+  <input type="radio" id="rating1" name="rating" value="1" required>
+  <input type="radio" id="rating2" name="rating" value="2" required>
+  <input type="radio" id="rating3" name="rating" value="3" required>
+  <input type="radio" id="rating4" name="rating" value="4" required>
+  <input type="radio" id="rating5" name="rating" value="5" required>
+
+
+
+</fieldset>
+   <input type="submit" value="Add Movie">
+</form>
+
+<button onclick="clearMovies()">Clear Movies</button>
+
+<h1>Movie List:</h1>
+<div id="movieListContainer"></div>
+
+<script>
+
+let genre = document.getElementById("grade");
+let rating = document.getElementsByName("rating");  
+let title = document.getElementById("user-name");
+let year = document.getElementById("user-ID");
+
+
+function store() {
+
+event.preventDefault();
+
+  let movie = {
+    title: title.value,
+    year: year.value,
+    genre: genre.value,
+    rating: parseInt(Array.from(rating).find(r => r.checked).value)
+  };
+
+  let movies = JSON.parse(localStorage.getItem("movies")) || [];
+  
+  // Check if a movie with the same title already exists
+  let existingMovieIndex = movies.findIndex(m => m.title.toLowerCase() === movie.title.toLowerCase());
+  
+  if (existingMovieIndex !== -1) {
+    // Update existing movie: average the ratings
+    let existingMovie = movies[existingMovieIndex];
+    existingMovie.rating = (existingMovie.rating + movie.rating) / 2;
+    existingMovie.year = movie.year;
+    existingMovie.genre = movie.genre;
+  } else {
+    // Add new movie
+    movies.push(movie);
+  }
+  
+  localStorage.setItem("movies", JSON.stringify(movies));
+  location.reload();
+  return true; // Allow form submission
+
+}
+
+function displayMovies() {
+  let container = document.getElementById("movieListContainer");
+  container.innerHTML = "";
+  
+  let movies = JSON.parse(localStorage.getItem("movies")) || [];
+  let movieList = document.createElement("ul");
+
+  movies.forEach((movie, index) => {
+    let listItem = document.createElement("li");
+    listItem.style.marginBottom = "10px";
+    
+    // Create a container for movie info and delete button
+    let movieInfo = document.createElement("span");
+    movieInfo.textContent = `${movie.year} - ${movie.title} (${movie.genre}) - Rating: ${movie.rating.toFixed(1)}`;
+    
+    let deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.style.marginLeft = "15px";
+    deleteBtn.onclick = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      deleteMovie(index);
+      return false;
+    };
+    
+    listItem.appendChild(movieInfo);
+    listItem.appendChild(deleteBtn);
+    movieList.appendChild(listItem);
+  });
+
+  container.appendChild(movieList);
+  
+}
+
+// Call displayMovies when the page loads
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", displayMovies);
+} else {
+  displayMovies();
+}
+
+function clearMovies() {
+    localStorage.removeItem("movies");
+    location.reload();
+}
+
+function deleteMovie(index) {
+  let movies = JSON.parse(localStorage.getItem("movies")) || [];
+  let movieToDelete = movies[index];
+  
+  if (confirm(`Are you sure you want to delete "${movieToDelete.title}"?`)) {
+    movies.splice(index, 1);
+    localStorage.setItem("movies", JSON.stringify(movies));
+    location.reload();
+  }
+}
+
+</script>
